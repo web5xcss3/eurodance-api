@@ -21,4 +21,6 @@ app.get('/youtube', async (req, res) => {
 
 });
 
+console.log("KEY:", process.env.YOUTUBE_KEY);
+
 app.listen(3000, () => console.log('API rodando'));
