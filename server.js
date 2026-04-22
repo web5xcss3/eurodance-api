@@ -1,9 +1,9 @@
-require('dotenv').config();
 const express = require('express');
 
 const app = express();
 
 app.get('/youtube', async (req, res) => {
+
     const q = req.query.q || 'eurodance';
     const key = process.env.YOUTUBE_KEY;
 
@@ -14,9 +14,11 @@ app.get('/youtube', async (req, res) => {
         const data = await response.json();
 
         res.json(data);
+
     } catch (err) {
         res.status(500).json({ error: err.message });
     }
+
 });
 
 app.listen(3000, () => console.log('API rodando'));
