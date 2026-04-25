@@ -1,43 +1,26 @@
 const express = require('express');
-const cors = require('cors');
 
 const app = express();
 
-// ✅ CORS LIBERADO (OBRIGATÓRIO)
-app.use(cors({
-    origin: '*', // pode restringir depois
-}));
-
-// 🔐 CHAVE SEGURA (Render ENV)
-const YOUTUBE_KEY = process.env.YOUTUBE_KEY;
-
-// 🎬 ROTA
 app.get('/youtube', async (req, res) => {
 
     const q = req.query.q || 'eurodance';
+    const key = process.env.YOUTUBE_KEY;
+
+    const url = `https://www.googleapis.com/youtube/v3/search?part=snippet&q=${q}&type=video&maxResults=12&key=${key}`;
 
     try {
-
-        const response = await fetch(
-            `https://www.googleapis.com/youtube/v3/search?part=id,snippet&q=${encodeURIComponent(q)}&type=video&maxResults=12&key=${YOUTUBE_KEY}`
-        );
-
+        const response = await fetch(url);
         const data = await response.json();
 
         res.json(data);
 
-    } catch (error) {
-
-        console.error(error);
-        res.status(500).json({ error: 'Erro ao buscar vídeos' });
-
+    } catch (err) {
+        res.status(500).json({ error: err.message });
     }
 
 });
 
-// 🚀 START
-const PORT = process.env.PORT || 3000;
+console.log("KEY:", process.env.YOUTUBE_KEY);
 
-app.listen(PORT, () => {
-    console.log('API rodando');
-});
+app.listen(3000, () => console.log('API rodando'));
