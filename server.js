@@ -3,12 +3,10 @@ const cors = require('cors');
 
 const app = express();
 
-// ✅ CORS LIBERADO (OBRIGATÓRIO)
-app.use(cors({
-    origin: '*', // pode restringir depois
-}));
+// ✅ CORS LIBERADO (ESSENCIAL)
+app.use(cors());
 
-// 🔐 CHAVE SEGURA (Render ENV)
+// 🔐 ENV
 const YOUTUBE_KEY = process.env.YOUTUBE_KEY;
 
 // 🎬 ROTA
@@ -24,18 +22,23 @@ app.get('/youtube', async (req, res) => {
 
         const data = await response.json();
 
+        res.setHeader('Access-Control-Allow-Origin', '*'); // 🔥 força CORS
         res.json(data);
 
     } catch (error) {
 
-        console.error(error);
+        console.error('Erro backend:', error);
         res.status(500).json({ error: 'Erro ao buscar vídeos' });
 
     }
 
 });
 
-// 🚀 START
+// 🔥 ROTA TESTE
+app.get('/', (req, res) => {
+    res.send('API OK');
+});
+
 const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, () => {
