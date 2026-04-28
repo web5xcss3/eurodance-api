@@ -17,17 +17,23 @@ app.get('/youtube', async (req, res) => {
     try {
 
         const response = await fetch(
-            `https://www.googleapis.com/youtube/v3/search?part=id,snippet&q=${encodeURIComponent(q)}&type=video&maxResults=12&key=${YOUTUBE_KEY}`
+            `https://www.googleapis.com/youtube/v3/search?part=id,snippet&q=${encodeURIComponent(q)}&type=video&maxResults=12&key=${process.env.YOUTUBE_KEY}`
         );
 
         const data = await response.json();
 
-        res.setHeader('Access-Control-Allow-Origin', '*'); // 🔥 força CORS
+        // 🔥 FORÇA CORS NA RESPOSTA
+        res.setHeader('Access-Control-Allow-Origin', '*');
+        res.setHeader('Access-Control-Allow-Headers', '*');
+
         res.json(data);
 
     } catch (error) {
 
         console.error('Erro backend:', error);
+
+        res.setHeader('Access-Control-Allow-Origin', '*');
+
         res.status(500).json({ error: 'Erro ao buscar vídeos' });
 
     }
