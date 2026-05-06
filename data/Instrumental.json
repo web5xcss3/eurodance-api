@@ -1,0 +1,67 @@
+[
+{
+    "id": 1,
+    "artist": "Masterboy",
+    "title": "Mix Instrumental",
+    "image": "https://assets.audiomack.com/play90music/cd118d79ba935aa3684440dcaac4cd9af7863ba88eef24cca0f84a8a42fedfda.jpeg",
+    "embedUrl": "https://audiomack.com/embed/play90music/album/mix-instrumental-1",
+    "year": "",
+    "label": "",
+    "country": "",
+    "format": "instrumental",
+    "genre": "Electronic",
+    "style": "Eurodance"
+  },
+  {
+    "id": 2,
+    "artist": "Activ8",
+    "title": "Mix Instrumental",
+    "image": "https://assets.audiomack.com/play90music/1b63677b34a47bd8ab79d86965f68427d27e81f11b92213d6b0c85b599ef591c.jpeg",
+    "embedUrl": "https://audiomack.com/embed/play90music/album/mix-instrumental",
+    "year": "",
+    "label": "",
+    "country": "",
+    "format": "instrumental",
+    "genre": "Electronic",
+    "style": "Eurodance"
+  },
+  {
+    "id": 3,
+    "artist": "Play 90 Music",
+    "title": "Mix Instrumental",
+    "image": "https://assets.audiomack.com/play90music/23f75fa780eee241c167e145643fe7b319f1af413e35f504aa1a243e25024537.jpeg",
+    "embedUrl": "https://audiomack.com/embed/play90music/album/mix-instrumental-1-1",
+    "year": "",
+    "label": "",
+    "country": "",
+    "format": "Instrumental",
+    "genre": "Electronic",
+    "style": "Eurodance"
+  },
+  {
+    "id": 4,
+    "artist": "Play 90 Music",
+    "title": "Mix Instrumental",
+    "image": "https://assets.audiomack.com/play90music/d5e88a90fa27d571622648b3de6a21a57005ebf771a44c393c3d0c15faf4741b.jpeg",
+    "embedUrl": "https://audiomack.com/embed/play90music/album/mix-instrumental-3",
+    "year": "",
+    "label": "",
+    "country": "",
+    "format": "Instrumental",
+    "genre": "Electronic",
+    "style": "Eurodance"
+  },
+  {
+    "id": 5,
+    "artist": "Play 90 Music",
+    "title": "Mix Instrumental",
+    "image": "https://assets.audiomack.com/play90music/b330f4440ace2901eb07e4c72701d9ad7a84a07dd09a6797fec8e196d79b928b.jpeg",
+    "embedUrl": "https://audiomack.com/embed/play90music/album/mix-instrumental-2",
+    "year": "",
+    "label": "",
+    "country": "",
+    "format": "Instrumental",
+    "genre": "Electronic",
+    "style": "Eurodance"
+  }
+]

@@ -1,0 +1,35 @@
+[
+{
+    "id": 1,
+    "artist": "Volume X",
+    "title": "Feel Your Love (Extended Energy Mix)",
+    "image": "https://i.ibb.co/m5Cb336C/music-default.jpg",
+    "embedUrl": "https://audiomack.com/embed/play90music/song/feel-your-love-extended-energy-mix",
+    "year": "1995",
+    "label": "Unknow",
+    "country": "Unknow",
+    "format": "Music"
+  },
+  {
+    "id": 2,
+    "artist": "The B-Corporation Feat. James & Jazmine",
+    "title": "Feel The Drive",
+    "image": "https://i.ibb.co/m5Cb336C/music-default.jpg",
+    "embedUrl": "https://audiomack.com/embed/play90music/song/feel-the-drive",
+    "year": "1994",
+    "label": "Unknow",
+    "country": "Unknow",
+    "format": "Music"
+  },
+  {
+    "id": 3,
+    "artist": "The Flex",
+    "title": "Robotic trance",
+    "image": "https://i.ibb.co/m5Cb336C/music-default.jpg",
+    "embedUrl": "https://audiomack.com/embed/play90music/song/robotic-trance",
+    "year": "1995",
+    "label": "MCA Records",
+    "country": "France",
+    "format": "Music"
+  }
+]

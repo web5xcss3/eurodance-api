@@ -1,0 +1,80 @@
+[
+{
+    "id": 1,
+    "artist": "Play 90 Music",
+    "title": "Italian Style Classics",
+    "image": "https://assets.audiomack.com/play90music/b67aed5ff5b73e6ee61a334422e1088ea3988c3528f54ca6deba46fa504ce295.jpeg",
+    "embedUrl": "https://audiomack.com/embed/play90music/album/italian-style-classics",
+    "year": "",
+    "label": "",
+    "country": "",
+    "format": "playlist",
+    "genre": "Electronic",
+    "style": "Eurodance"
+  },
+  {
+    "id": 2,
+    "artist": "Play 90 Music",
+    "title": "Top 15 Hits",
+    "image": "https://assets.audiomack.com/play90music/84f7680ed8c743450572731f2985ea56fa565bf80dee97b968bd67a05cf80c27.jpeg",
+    "embedUrl": "https://audiomack.com/embed/play90music/album/top-15-hits",
+    "year": "",
+    "label": "",
+    "country": "",
+    "format": "playlist",
+    "genre": "Electronic",
+    "style": "Eurodance"
+  },
+  {
+    "id": 3,
+    "artist": "Play 90 Music",
+    "title": "ICE MC",
+    "image": "https://assets.audiomack.com/playlists-de-artistas-ice-mc/9060c648009cef3c06166123dad6623ede91984a1225d72ed27769c30421cd9a.png",
+    "embedUrl": "https://audiomack.com/embed/play90music/playlist/playlists-de-artistas-ice-mc",
+    "year": "",
+    "label": "",
+    "country": "",
+    "format": "Playlist",
+    "genre": "Electronic",
+    "style": "Eurodance"
+  },
+  {
+    "id": 4,
+    "artist": "Play 90 Music",
+    "title": "Top 14 Hits",
+    "image": "https://assets.audiomack.com/play90music/e2a7632cfc84fa5c0850a69914c6690ddff601d5983280f639145432183e8d15.jpeg",
+    "embedUrl": "https://audiomack.com/embed/play90music/album/top-14-hits",
+    "year": "",
+    "label": "",
+    "country": "",
+    "format": "Playlist",
+    "genre": "Electronic",
+    "style": "Eurodance"
+  },
+  {
+    "id": 5,
+    "artist": "Play 90 Music",
+    "title": "Back to 90s",
+    "image": "https://assets.audiomack.com/play90music/17a818ae9b85b9f40cc585e2d18d3468467d18b87fd1ecf61bf0aaaf69af813f.jpeg",
+    "embedUrl": "https://audiomack.com/embed/play90music/album/back-to-90s",
+    "year": "",
+    "label": "",
+    "country": "",
+    "format": "Playlist",
+    "genre": "Electronic",
+    "style": "Eurodance"
+  },
+  {
+    "id": 6,
+    "artist": "Play 90 Music",
+    "title": "Best of 90s",
+    "image": "https://assets.audiomack.com/play90music/0e37ba71900ae6475e1135a18ca308d452d86d488371fff7ea2ca9611060e9b5.jpeg",
+    "embedUrl": "https://audiomack.com/embed/play90music/album/best-of-90s",
+    "year": "",
+    "label": "",
+    "country": "",
+    "format": "Playlist",
+    "genre": "Electronic",
+    "style": "Eurodance"
+  }
+ ]

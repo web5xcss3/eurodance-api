@@ -1,0 +1,326 @@
+[
+  {
+    "id": 1,
+    "name": "2XPAND",
+    "image": "https://i.ibb.co/4gS6RHmg/L-93208-1271539360.jpg",
+    "country": "Italy"
+  },
+  {
+    "id": 2,
+    "name": "4Fun",
+    "image": "https://i.ibb.co/vCDyMV1L/R-1092774-1352300521-1193.jpg",
+    "country": "Italy"
+  },
+  {
+    "id": 3,
+    "name": "4th Dimension",
+    "image": "https://i.ibb.co/wZ2kvWk2/L-18407-1430328276-9562.jpg",
+    "country": "Germany, UK, Netherlands, USA"
+  },
+  {
+    "id": 4,
+    "name": "007 Records",
+    "image": "https://i.ibb.co/My3mtttd/L-65537-1619633650-2036.jpg",
+    "country": "Italy"
+  },
+  {
+    "id": 5,
+    "name": "12INC",
+    "image": "https://i.ibb.co/Y7b9gMjx/L-3086-001.jpg",
+    "country": "Sweden"
+  },
+  {
+    "id": 6,
+    "name": "21st Century Records",
+    "image": "https://i.ibb.co/VYx65G2v/L-55934-1298479015.jpg",
+    "country": "Italy"
+  },
+  {
+    "id": 7,
+    "name": "69-Records",
+    "image": "https://i.ibb.co/bjpwvcK6/L-110440-1445549439-1244.jpg",
+    "country": "Germany"
+  },
+  {
+    "id": 8,
+    "name": "150 BPM Records",
+    "image": "https://i.ibb.co/TDf7tvyS/L-21849-1244668980.jpg",
+    "country": "Switzerland"
+  },
+  {
+    "id": 9,
+    "name": "A27 Records",
+    "image": "https://i.ibb.co/Q3rSnhGn/L-24876-1555775696-8301.jpg",
+    "country": "Holland, Belgium"
+  },
+  {
+    "id": 10,
+    "name": "Abfahrt Records",
+    "image": "https://i.ibb.co/v4Wf5fwt/L-8225-1663414755-4421.jpg",
+    "country": "Germany"
+  },
+  {
+    "id": 11,
+    "name": "Absolut Joy",
+    "image": "https://i.ibb.co/6RpH3fVw/L-12622-1164144735.jpg",
+    "country": "Italy"
+  },
+  {
+    "id": 12,
+    "name": "Academy Street Records",
+    "image": "https://i.ibb.co/R4NH8FHp/L-12022-1249867761.jpg",
+    "country": "Bathgate, West Lothian, Scotland"
+  },
+  {
+    "id": 13,
+    "name": "Air Record",
+    "image": "https://i.ibb.co/svXLnrnk/L-84361-1611265885-7850.jpg",
+    "country": "Germany"
+  },
+  {
+    "id": 14,
+    "name": "Airplay Records",
+    "image": "https://i.ibb.co/qYkLn1fg/L-6267-1231073536.jpg",
+    "country": "France"
+  },
+  {
+    "id": 15,
+    "name": "Alabianca Records",
+    "image": "https://i.ibb.co/JFtyHBRf/L-3172-1198450930.jpg",
+    "country": "Italy, Benelux"
+  },
+  {
+    "id": 16,
+    "name": "ALC Productions",
+    "image": "https://i.ibb.co/rGjk3XWN/L-14166-1683626409-1868.jpg",
+    "country": "Belgium"
+  },
+  {
+    "id": 17,
+    "name": "Alfa International",
+    "image": "https://i.ibb.co/cKk6Zjrd/L-126573-1537457739-6950.jpg",
+    "country": "Europe"
+  },
+  {
+    "id": 18,
+    "name": "All Around The World",
+    "image": "https://i.ibb.co/Qvk1wMsc/L-5037-1454221336-1884.jpg",
+    "country": "UK"
+  },
+  {
+    "id": 19,
+    "name": "Allover Records",
+    "image": "https://i.ibb.co/VW9ZV4H8/L-126315-1284165981.jpg",
+    "country": "Germany"
+  },
+  {
+    "id": 20,
+    "name": "Alpha Records",
+    "image": "https://i.ibb.co/xqbgQG0V/L-16853-1230367521.jpg",
+    "country": "Sweden"
+  },
+  {
+    "id": 21,
+    "name": "Animal Records",
+    "image": "https://i.ibb.co/67M8bmr6/L-64964-1596146254-8072.jpg",
+    "country": "Italy"
+  },
+  {
+    "id": 22,
+    "name": "Arcade Music Company",
+    "image": "https://i.ibb.co/xtv17VJV/L-32756-1457037606-9685.jpg",
+    "country": "Holland"
+  },
+  {
+    "id": 23,
+    "name": "Arco Baleno Records",
+    "image": "https://i.ibb.co/KcSFxc1d/L-756871-1507202535-5157.jpg",
+    "country": "Germany"
+  },
+  {
+    "id": 24,
+    "name": "Area International",
+    "image": "https://i.ibb.co/jksXhqhN/L-7572-1273043366.jpg",
+    "country": "Spain"
+  },
+  {
+    "id": 25,
+    "name": "Ares",
+    "image": "https://i.ibb.co/LhpFXsJf/L-86729-1325255446.jpg",
+    "country": "Italy"
+  },
+  {
+    "id": 26,
+    "name": "Aries Records",
+    "image": "https://i.ibb.co/yB4ngT5c/L-19180-1254650458.jpg",
+    "country": "Italy"
+  },
+  {
+    "id": 27,
+    "name": "Ariola",
+    "image": "https://i.ibb.co/2032TN45/L-5410-1255146174.jpg",
+    "country": "Switzerland, Netherlands, Belgium"
+  },
+  {
+    "id": 28,
+    "name": "Arista",
+    "image": "https://i.ibb.co/N2xrHY4h/L-362-1557313440-1639.jpg",
+    "country": "New York"
+  },
+  {
+    "id": 29,
+    "name": "ARS Productions",
+    "image": "https://i.ibb.co/GfY671yn/L-2079-1399903930-4494.jpg",
+    "country": "Belgium"
+  },
+  {
+    "id": 30,
+    "name": "Atlantic",
+    "image": "https://i.ibb.co/M5WvR5QQ/L-681-1510682134-8350.jpg",
+    "country": "USA"
+  },
+  {
+    "id": 31,
+    "name": "Atomic Energy Records",
+    "image": "https://i.ibb.co/Cp4XJ7tB/L-14181-1275076368.jpg",
+    "country": "Italy"
+  },
+  {
+    "id": 32,
+    "name": "Ave Trax",
+    "image": "https://i.ibb.co/0jwMW8vm/L-2305-1524696797-6184.jpg",
+    "country": "Japan"
+  },
+  {
+    "id": 33,
+    "name": "Avex Asia Limited",
+    "image": "https://i.ibb.co/Xk7T2XSc/L-147460-1657226168-4919.jpg",
+    "country": "Asia"
+  },
+  {
+    "id": 34,
+    "name": "B4 Before",
+    "image": "https://i.ibb.co/TxYpChcy/L-19503-1311988191.jpg",
+    "country": "Italy"
+  },
+  {
+    "id": 35,
+    "name": "Back And For Records",
+    "image": "https://i.ibb.co/dJk1VRxR/L-87556-1325256100.jpg",
+    "country": "Italy"
+  },
+  {
+    "id": 36,
+    "name": "Bags Of Fun",
+    "image": "https://i.ibb.co/HTLGC5Qc/no-image.png",
+    "country": "UK"
+  },
+  {
+    "id": 37,
+    "name": "Barclay",
+    "image": "https://i.ibb.co/KxdwTDPF/L-3304-1238602694.jpg",
+    "country": "France"
+  },
+  {
+    "id": 38,
+    "name": "Beam Records",
+    "image": "https://i.ibb.co/hJwjcrDp/L-8902-1146070942.jpg",
+    "country": "Germany"
+  },
+  {
+    "id": 39,
+    "name": "Bell Records",
+    "image": "https://i.ibb.co/p6McSZhr/L-25407-1649044106-5821.jpg",
+    "country": "New York"
+  },
+  {
+    "id": 40,
+    "name": "Bellaphon",
+    "image": "https://i.ibb.co/hJyCqCk0/L-6800-1551428770-5483.jpg",
+    "country": "Germany"
+  },
+  {
+    "id": 41,
+    "name": "Benvenuto Ed. Musicali",
+    "image": "https://i.ibb.co/Df6DGSzS/L-101456-1315673432.jpg",
+    "country": "Italy"
+  },
+  {
+    "id": 42,
+    "name": "BMG, Bertelsmann Music Group",
+    "image": "https://i.ibb.co/23gjJPDj/L-414965-1690245505-5022.jpg",
+    "country": "Germany"
+  },
+  {
+    "id": 43,
+    "name": "BGM America Inc",
+    "image": "https://i.ibb.co/5XGdRYvk/L-94613-1564499349-3083.jpg",
+    "country": "U.A.S."
+  },
+  {
+    "id": 44,
+    "name": "Bianco & Nero",
+    "image": "https://i.ibb.co/xtf15ygq/L-30790-1274970867.jpg",
+    "country": "Italy"
+  },
+  {
+    "id": 45,
+    "name": "Big Bubbles",
+    "image": "https://i.ibb.co/svHBFzmB/L-25767-1342113247-5692.jpg",
+    "country": "Germany"
+  },
+  {
+    "id": 46,
+    "name": "Big Trax Records",
+    "image": "https://i.ibb.co/yFFVF9TF/L-40624-1149451072.jpg",
+    "country": "Italy"
+  },
+  {
+    "id": 47,
+    "name": "Bit Music",
+    "image": "https://i.ibb.co/SFT7BrY/L-10663-1457377145-9853.jpg",
+    "country": "Spain"
+  },
+  {
+    "id": 48,
+    "name": "Blackbeard",
+    "image": "https://i.ibb.co/7xWmCXns/R-708020-1269126239.jpg",
+    "country": "Italy"
+  },
+  {
+    "id": 49,
+    "name": "Blanco Y Negro",
+    "image": "https://i.ibb.co/GXx70tM/L-1967-1354627039-9832.jpg",
+    "country": "Spain"
+  },
+  {
+    "id": 50,
+    "name": "Bloom Records",
+    "image": "https://i.ibb.co/7JcjT6tH/L-422837-1343409518-5720.jpg",
+    "country": "Italy"
+  },
+  {
+    "id": 51,
+    "name": "Blow Up",
+    "image": "https://i.ibb.co/Q7rgzkCW/L-2167-1361820496-5495.jpg",
+    "country": "Germany"
+  },
+  {
+    "id": 52,
+    "name": "Blue Bubble Records",
+    "image": "https://i.ibb.co/q37QcsKF/L-73720-1267920950.jpg",
+    "country": "Finland"
+  },
+  {
+    "id": 53,
+    "name": "BMG",
+    "image": "https://i.ibb.co/BKF4gqRn/L-1003-1588624563-5064.jpg",
+    "country": "Germany"
+  },
+  {
+    "id": 54,
+    "name": "BMG Ariola (Schweiz) AG",
+    "image": "https://i.ibb.co/RZHSmNr/L-93019-1342116227-8544.jpg",
+    "country": "Switzland"
+  }
+]
