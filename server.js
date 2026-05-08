@@ -5,7 +5,7 @@ const albums = require('./data/albums.json');
 const genres = require('./data/genres.json');
 const instrumental = require('./data/instrumental.json');
 const labels = require('./data/labels.json');
-const mixdjs = require('./data/mixdj.json');
+const djs = require('./data/mixdj.json');
 const music = require('./data/music.json');
 const playlists = require('./data/playlists.json');
 const single = require('./data/single.json');
@@ -26,7 +26,7 @@ app.get('/albums', (req, res) => res.json(albums));
 app.get('/genres', (req, res) => res.json(genres));
 app.get('/instrumental', (req, res) => res.json(instrumental));
 app.get('/labels', (req, res) => res.json(labels));
-app.get('/mixdj', (req, res) => res.json(mixdjs));
+app.get('/djs', (req, res) => res.json(djs));
 app.get('/music', (req, res) => res.json(music));
 app.get('/playlists', (req, res) => res.json(playlists));
 app.get('/single', (req, res) => res.json(single));
@@ -39,7 +39,7 @@ app.get('/mock', (req, res) => {
     genres,
     instrumental,
     labels,
-    mixdjs,
+    djs,
     music,
     playlists,
     single,
