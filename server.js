@@ -1,15 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 
-const albums = require('./data/albums.json');
-const genres = require('./data/genres.json');
-const instrumental = require('./data/instrumental.json');
-const labels = require('./data/labels.json');
-const djs = require('./data/mixdj.json');
-const music = require('./data/music.json');
-const playlists = require('./data/playlists.json');
-const single = require('./data/single.json');
-const vinyl = require('./data/vinyl.json');
+const mockData = require('./data/mockData.json');
 
 const app = express();
 
@@ -22,29 +14,11 @@ const cache = {};
 const CACHE_TIME = 1000 * 60 * 60;
 
 // JSON routes
-app.get('/albums', (req, res) => res.json(albums));
-app.get('/genres', (req, res) => res.json(genres));
-app.get('/instrumental', (req, res) => res.json(instrumental));
-app.get('/labels', (req, res) => res.json(labels));
-app.get('/djs', (req, res) => res.json(djs));
-app.get('/music', (req, res) => res.json(music));
-app.get('/playlists', (req, res) => res.json(playlists));
-app.get('/single', (req, res) => res.json(single));
-app.get('/vinyl', (req, res) => res.json(vinyl));
+app.get('/mockData', (req, res) => res.json(mockData));
 
-// tudo junto
+// rota principal
 app.get('/mock', (req, res) => {
-  res.json({
-    albums,
-    genres,
-    instrumental,
-    labels,
-    djs,
-    music,
-    playlists,
-    single,
-    vinyl
-  });
+  res.json(mockData);
 });
 
 // YouTube
@@ -85,15 +59,7 @@ app.get('/', (req, res) => {
   res.json({
     status: 'API OK',
     routes: [
-      '/albums',
-      '/genres',
-      '/instrumental',
-      '/labels',
-      '/mixdj',
-      '/music',
-      '/playlists',
-      '/single',
-      '/vinyl',
+      '/mockData',
       '/mock',
       '/youtube?q=eurodance'
     ]
