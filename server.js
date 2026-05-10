@@ -2,6 +2,8 @@ const express = require('express');
 const cors = require('cors');
 
 const mockData = require('./data/mockData.json');
+const labels = require('./data/labels.json');
+const genres = require('./data/genres.json');
 
 const app = express();
 
@@ -13,15 +15,28 @@ const YOUTUBE_KEY = process.env.YOUTUBE_KEY;
 const cache = {};
 const CACHE_TIME = 1000 * 60 * 60;
 
-// JSON routes
-app.get('/mockData', (req, res) => res.json(mockData));
+// ===============================
+// JSON ROUTES
+// ===============================
+app.get('/mockData', (req, res) => {
+  res.json(mockData);
+});
 
-// rota principal
 app.get('/mock', (req, res) => {
   res.json(mockData);
 });
 
-// YouTube
+app.get('/labels', (req, res) => {
+  res.json(labels);
+});
+
+app.get('/genres', (req, res) => {
+  res.json(genres);
+});
+
+// ===============================
+// YOUTUBE
+// ===============================
 app.get('/youtube', async (req, res) => {
   const q = req.query.q || 'eurodance';
 
@@ -48,19 +63,26 @@ app.get('/youtube', async (req, res) => {
     };
 
     res.json(data);
+
   } catch (error) {
     console.error('Erro backend:', error);
-    res.status(500).json({ error: 'Erro ao buscar vídeos' });
+    res.status(500).json({
+      error: 'Erro ao buscar vídeos'
+    });
   }
 });
 
-// teste
+// ===============================
+// TESTE
+// ===============================
 app.get('/', (req, res) => {
   res.json({
     status: 'API OK',
     routes: [
       '/mockData',
       '/mock',
+      '/labels',
+      '/genres',
       '/youtube?q=eurodance'
     ]
   });
@@ -69,5 +91,5 @@ app.get('/', (req, res) => {
 const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, () => {
-  console.log('API rodando');
+  console.log('API rodando na porta ' + PORT);
 });
