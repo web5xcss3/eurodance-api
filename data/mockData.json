@@ -5350,5 +5350,57 @@
     "year": "1995",
     "genre": "Electronic",
     "style": "Italodance"
+  },
+  {
+    "id": 450,
+    "artist": "Echo Bass",
+    "title": "Say Up & Down! (CD, Maxi-Single, 12INC, Sweden 1996)",
+    "image": "https://i.ibb.co/qFMSWFy9/R-562074-1211374160.jpg",
+    "embedUrl": "https://audiomack.com/embed/play90music/album/say-up-down-cd-maxi-single-12inc-sweden-1996",
+    "label": "12INC",
+    "format": "CD, Maxi-Single",
+    "country": "Sweden",
+    "year": "1996",
+    "genre": "Electronic",
+    "style": "Euro House"
+  },
+  {
+    "id": 451,
+    "artist": "Echo Bass",
+    "title": "Givin' It Up (CD, Maxi-Single, Ramdam Factory, France 1995)",
+    "image": "https://i.ibb.co/C3wpWhrc/R-594121-1663879071-4503.jpg",
+    "embedUrl": "https://audiomack.com/embed/play90music/album/givin-it-up-cd-maxi-single-ramdam-factory-france-1995",
+    "label": "Ramdam Factory",
+    "format": "CD, Maxi-Single",
+    "country": "France",
+    "year": "1995",
+    "genre": "Electronic",
+    "style": "Euro House, Eurodance, Hard Trance"
+  },
+  {
+    "id": 452,
+    "artist": "Echo Bass",
+    "title": "Gotta Dance With The Music (Remix)(CD, Maxi-Single, France 1994)",
+    "image": "https://i.ibb.co/gbqzQTSj/R-1181703-1198927857.jpg",
+    "embedUrl": "https://audiomack.com/embed/play90music/album/gotta-dance-with-the-music-remixcd-maxi-single-france-1994",
+    "label": "	Ramdam Factory",
+    "format": "CD, Maxi-Single",
+    "country": "France",
+    "year": "1995",
+    "genre": "Electronic",
+    "style": "Eurodance, Euro House"
+  },
+  {
+    "id": 453,
+    "artist": "Echo Bass",
+    "title": "Gotta Dance With The Music (CD, Maxi-Single, Germany 1994)",
+    "image": "https://i.ibb.co/8LCNRS9R/R-170112-1683207926-1382.jpg",
+    "embedUrl": "https://audiomack.com/embed/play90music/album/gotta-dance-with-the-music-cd-maxi-single-germany-1994",
+    "label": "Direct Effect",
+    "format": "CD, Maxi-Single",
+    "country": "Germany",
+    "year": "1994",
+    "genre": "Electronic",
+    "style": "Euro House"
   }
 ]
