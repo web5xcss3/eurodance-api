@@ -5441,8 +5441,7 @@
     "year": "1995",
     "genre": "Electronic",
     "style": "Euro House, Eurodance"
-  }
-  ,
+  },
   {
     "id": 457,
     "artist": "Souladelic",
@@ -5455,5 +5454,18 @@
     "year": "1994",
     "genre": "Electronic",
     "style": "Trance, Euro House"
+  },
+  {
+    "id": 458,
+    "artist": "Insideout",
+    "title": "Dance! Remix (CD, Maxi-Single, Phonokol, Israel 1994)",
+    "image": "https://i.ibb.co/hF88CCK2/R-1200646-1367178478-1870.jpg",
+    "embedUrl": "https://audiomack.com/embed/play90music/album/dance-remix-cd-maxi-single-phonokol-israel-1994",
+    "label": "Phonokol",
+    "format": "CD, Maxi-Single",
+    "country": "Israel",
+    "year": "1994",
+    "genre": "Electronic",
+    "style": "Eurodance"
   }
 ]
