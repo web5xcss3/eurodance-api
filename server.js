@@ -89,6 +89,12 @@ app.post('/admin/create-item', upload.single('image'), async (req, res) => {
     });
   }
 
+  if (!req.file) {
+  return res.status(400).json({
+    error: 'Nenhuma imagem enviada'
+  });
+}
+
   try {
 
     const imageBase64 = req.file.buffer.toString('base64');
