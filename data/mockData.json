@@ -5480,5 +5480,57 @@
     "year": "1995",
     "genre": "Electronic",
     "style": "Euro House, Eurodance"
+  },
+  {
+    "id": 460,
+    "artist": "Krema",
+    "title": "House Music (Vinyl, 12'', Boy Records, Spain 1995)",
+    "image": "https://i.ibb.co/mCWG5Nw3/R-996666-1183741659.jpg",
+    "embedUrl": "https://audiomack.com/embed/play90music/album/house-music-vinyl-12-boy-records-spain-1995",
+    "label": "Boy Records",
+    "format": "Vinyl, 12'', 33 ⅓ RPM",
+    "country": "Spain",
+    "year": "1995",
+    "genre": "Electronic",
+    "style": "House, Italodance"
+  },
+  {
+    "id": 461,
+    "artist": "Never Mind",
+    "title": "Movin' On (Vinyl, 12'', Out, Italy 1994)",
+    "image": "https://i.ibb.co/XrxwhSkL/R-1277127-1417247309-2911.jpg",
+    "embedUrl": "https://audiomack.com/embed/play90music/album/movin-on-vinyl-12-out-italy-1994",
+    "label": "Out",
+    "format": "Vinyl, 12'', 33 ⅓ RPM",
+    "country": "Italy",
+    "year": "1994",
+    "genre": "Electronic",
+    "style": "Italodance"
+  },
+  {
+    "id": 462,
+    "artist": "DJ Dado & 2 System",
+    "title": "Peace & Unity (Vinyl, 12'', Out, Italy 1993)",
+    "image": "https://i.ibb.co/yFfGNvJK/R-1631706-1697974540-1606.jpg",
+    "embedUrl": "https://audiomack.com/embed/play90music/album/peace-unity-vinyl-12-out-italy-1993",
+    "label": "Out",
+    "format": "Vinyl, 12'', 45 RPM, Stereo",
+    "country": "Italy",
+    "year": "1993",
+    "genre": "Electronic",
+    "style": "Italodance"
+  },
+  {
+    "id": 463,
+    "artist": "Nice Price",
+    "title": "Rock My Body (Vinyl, 12'', Big Trax Records, Italy 1995)",
+    "image": "https://i.ibb.co/v4rQhJYZ/R-362074-1149451099.jpg",
+    "embedUrl": "https://audiomack.com/embed/play90music/album/rock-my-body-vinyl-12-big-trax-records-italy-1995",
+    "label": "Big Trax Records",
+    "format": "Vinyl, 12'', 33 ⅓ RPM",
+    "country": "Italy",
+    "year": "1995",
+    "genre": "Electronic",
+    "style": "Italodance"
   }
 ]
