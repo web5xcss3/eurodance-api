@@ -73,6 +73,28 @@ app.get('/youtube', async (req, res) => {
 });
 
 // ===============================
+// ADMIN PROTEGIDO
+// ===============================
+app.post('/admin/create-item', (req, res) => {
+  const token = req.headers.authorization?.replace('Bearer ', '');
+
+  if (token !== process.env.ADMIN_TOKEN) {
+    return res.status(401).json({
+      error: 'Não autorizado'
+    });
+  }
+
+  console.log('✅ Admin autorizado');
+  console.log('Dados recebidos:', req.body);
+
+  res.json({
+    success: true,
+    message: 'Rota admin protegida funcionando',
+    data: req.body
+  });
+});
+
+// ===============================
 // TESTE
 // ===============================
 app.get('/', (req, res) => {
@@ -83,7 +105,8 @@ app.get('/', (req, res) => {
       '/mock',
       '/labels',
       '/genres',
-      '/youtube?q=eurodance'
+      '/youtube?q=eurodance',
+      '/admin/create-item'
     ]
   });
 });
