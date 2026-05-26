@@ -89,90 +89,63 @@ app.post('/admin/create-item', upload.single('image'), async (req, res) => {
     });
   }
 
-  if (!req.file) {
-  return res.status(400).json({
-    error: 'Nenhuma imagem enviada'
-  });
-}
-
-const imageBase64 = req.file.buffer.toString('base64');
-
-const body = new URLSearchParams();
-
-body.append('image', imageBase64);
-body.append('name', req.file.originalname || 'upload');
-
-const response = await fetch(
-  `https://api.imgbb.com/1/upload?key=${process.env.IMGBB_KEY}`,
-  {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/x-www-form-urlencoded'
-    },
-    body
-  }
-);
-
   try {
+
+    if (!req.file || !req.file.buffer) {
+      return res.status(400).json({
+        error: 'Nenhuma imagem recebida pela API'
+      });
+    }
 
     const imageBase64 = req.file.buffer.toString('base64');
 
-    const form = new FormData();
+    console.log('FILE:', {
+      name: req.file.originalname,
+      size: req.file.size,
+      mimetype: req.file.mimetype,
+      base64Length: imageBase64.length
+    });
 
-    form.append('image', imageBase64);
-
-    // ENVIA PARA IMGBB
     const response = await fetch(
       `https://api.imgbb.com/1/upload?key=${process.env.IMGBB_KEY}`,
       {
         method: 'POST',
-        body: form
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          image: imageBase64,
+          name: req.file.originalname || 'upload'
+        })
       }
     );
 
     const imageData = await response.json();
 
-console.log('IMGBB STATUS:', response.status);
-console.log('IMGBB RESPONSE:', imageData);
+    console.log('IMGBB STATUS:', response.status);
+    console.log('IMGBB RESPONSE:', imageData);
 
-if (!response.ok || !imageData.success || !imageData.data) {
-  return res.status(500).json({
-    error: imageData?.error?.message || 'Erro upload ImgBB',
-    details: imageData
-  });
-}
+    if (!response.ok || !imageData.success || !imageData.data) {
+      return res.status(500).json({
+        error: imageData?.error?.message || 'Erro upload ImgBB',
+        details: imageData
+      });
+    }
 
-const imageUrl = imageData.data.url;
-
-    // CRIA OBJETO
     const item = {
       id: Date.now(),
-
       type: req.body.type || 'albums',
-
       artist: req.body.artist || '',
-
       title: req.body.title || '',
-
-      image: imageUrl,
-
+      image: imageData.data.url,
       embedUrl: req.body.embedUrl || '',
-
       year: req.body.year || '',
-
       label: req.body.label || '',
-
       country: req.body.country || '',
-
       format: req.body.format || '',
-
       genre: req.body.genre || '',
-
       style: req.body.style || ''
     };
-
-    console.log('✅ ITEM CRIADO');
-    console.log(item);
 
     res.json({
       success: true,
@@ -180,14 +153,12 @@ const imageUrl = imageData.data.url;
     });
 
   } catch (error) {
+    console.error('ERRO REAL:', error);
 
-  console.error('ERRO REAL:', error);
-
-  res.status(500).json({
-    error: error.message || 'Erro upload ImgBB'
-  });
-}
-
+    res.status(500).json({
+      error: error.message || 'Erro upload ImgBB'
+    });
+  }
 });
 
 // ===============================
