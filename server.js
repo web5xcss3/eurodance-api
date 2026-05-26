@@ -95,6 +95,23 @@ app.post('/admin/create-item', upload.single('image'), async (req, res) => {
   });
 }
 
+const imageBase64 = req.file.buffer.toString('base64');
+
+const form = new FormData();
+
+form.append('image', imageBase64, {
+  filename: req.file.originalname || 'upload.jpg'
+});
+
+const response = await fetch(
+  `https://api.imgbb.com/1/upload?key=${process.env.IMGBB_KEY}`,
+  {
+    method: 'POST',
+    headers: form.getHeaders(),
+    body: form
+  }
+);
+
   try {
 
     const imageBase64 = req.file.buffer.toString('base64');
