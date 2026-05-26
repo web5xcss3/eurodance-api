@@ -1,3 +1,7 @@
+const multer = require('multer');
+const FormData = require('form-data');
+
+const upload = multer();
 const express = require('express');
 const cors = require('cors');
 
@@ -73,9 +77,10 @@ app.get('/youtube', async (req, res) => {
 });
 
 // ===============================
-// ADMIN PROTEGIDO
+// ADMIN PROTEGIDO + IMGBB
 // ===============================
-app.post('/admin/create-item', (req, res) => {
+app.post('/admin/create-item', upload.single('image'), async (req, res) => {
+
   const token = req.headers.authorization?.replace('Bearer ', '');
 
   if (token !== process.env.ADMIN_TOKEN) {
@@ -84,14 +89,72 @@ app.post('/admin/create-item', (req, res) => {
     });
   }
 
-  console.log('✅ Admin autorizado');
-  console.log('Dados recebidos:', req.body);
+  try {
 
-  res.json({
-    success: true,
-    message: 'Rota admin protegida funcionando',
-    data: req.body
-  });
+    const imageBase64 = req.file.buffer.toString('base64');
+
+    const form = new FormData();
+
+    form.append('image', imageBase64);
+
+    // ENVIA PARA IMGBB
+    const response = await fetch(
+      `https://api.imgbb.com/1/upload?key=${process.env.IMGBB_KEY}`,
+      {
+        method: 'POST',
+        body: form
+      }
+    );
+
+    const imageData = await response.json();
+
+    // URL RETORNADA
+    const imageUrl = imageData.data.url;
+
+    // CRIA OBJETO
+    const item = {
+      id: Date.now(),
+
+      type: req.body.type || 'albums',
+
+      artist: req.body.artist || '',
+
+      title: req.body.title || '',
+
+      image: imageUrl,
+
+      embedUrl: req.body.embedUrl || '',
+
+      year: req.body.year || '',
+
+      label: req.body.label || '',
+
+      country: req.body.country || '',
+
+      format: req.body.format || '',
+
+      genre: req.body.genre || '',
+
+      style: req.body.style || ''
+    };
+
+    console.log('✅ ITEM CRIADO');
+    console.log(item);
+
+    res.json({
+      success: true,
+      item
+    });
+
+  } catch (error) {
+
+    console.error(error);
+
+    res.status(500).json({
+      error: 'Erro upload ImgBB'
+    });
+  }
+
 });
 
 // ===============================
