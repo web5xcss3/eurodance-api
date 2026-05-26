@@ -108,8 +108,17 @@ app.post('/admin/create-item', upload.single('image'), async (req, res) => {
 
     const imageData = await response.json();
 
-    // URL RETORNADA
-    const imageUrl = imageData.data.url;
+console.log('IMGBB STATUS:', response.status);
+console.log('IMGBB RESPONSE:', imageData);
+
+if (!response.ok || !imageData.success || !imageData.data) {
+  return res.status(500).json({
+    error: imageData?.error?.message || 'Erro upload ImgBB',
+    details: imageData
+  });
+}
+
+const imageUrl = imageData.data.url;
 
     // CRIA OBJETO
     const item = {
@@ -148,12 +157,12 @@ app.post('/admin/create-item', upload.single('image'), async (req, res) => {
 
   } catch (error) {
 
-    console.error(error);
+  console.error('ERRO REAL:', error);
 
-    res.status(500).json({
-      error: 'Erro upload ImgBB'
-    });
-  }
+  res.status(500).json({
+    error: error.message || 'Erro upload ImgBB'
+  });
+}
 
 });
 
