@@ -1,5 +1,4 @@
 const multer = require('multer');
-const FormData = require('form-data');
 
 const upload = multer();
 const express = require('express');
@@ -92,45 +91,46 @@ app.post('/admin/create-item', upload.single('image'), async (req, res) => {
   try {
 
     if (!req.file || !req.file.buffer) {
-      return res.status(400).json({
-        error: 'Nenhuma imagem recebida pela API'
-      });
-    }
+  return res.status(400).json({
+    error: 'Nenhuma imagem recebida pela API'
+  });
+}
 
-    const imageBase64 = req.file.buffer.toString('base64');
+console.log('FILE:', {
+  name: req.file.originalname,
+  size: req.file.size,
+  mimetype: req.file.mimetype
+});
 
-    console.log('FILE:', {
-      name: req.file.originalname,
-      size: req.file.size,
-      mimetype: req.file.mimetype,
-      base64Length: imageBase64.length
-    });
+const imageBlob = new Blob([req.file.buffer], {
+  type: req.file.mimetype || 'image/jpeg'
+});
 
-    const response = await fetch(
-      `https://api.imgbb.com/1/upload?key=${process.env.IMGBB_KEY}`,
-      {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          image: imageBase64,
-          name: req.file.originalname || 'upload'
-        })
-      }
-    );
+const form = new globalThis.FormData();
 
-    const imageData = await response.json();
+form.append('image', imageBlob, req.file.originalname || 'upload.jpg');
 
-    console.log('IMGBB STATUS:', response.status);
-    console.log('IMGBB RESPONSE:', imageData);
+const response = await fetch(
+  `https://api.imgbb.com/1/upload?key=${process.env.IMGBB_KEY}`,
+  {
+    method: 'POST',
+    body: form
+  }
+);
 
-    if (!response.ok || !imageData.success || !imageData.data) {
-      return res.status(500).json({
-        error: imageData?.error?.message || 'Erro upload ImgBB',
-        details: imageData
-      });
-    }
+const imageData = await response.json();
+
+console.log('IMGBB STATUS:', response.status);
+console.log('IMGBB RESPONSE:', imageData);
+
+if (!response.ok || !imageData.success || !imageData.data) {
+  return res.status(500).json({
+    error: imageData?.error?.message || 'Erro upload ImgBB',
+    details: imageData
+  });
+}
+
+const imageUrl = imageData.data.url;
 
     const item = {
       id: Date.now(),
