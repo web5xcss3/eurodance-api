@@ -16,7 +16,10 @@ app.use(express.json());
 const YOUTUBE_KEY = process.env.YOUTUBE_KEY;
 const MONGODB_URI = process.env.MONGODB_URI;
 
-const mongoClient = new MongoClient(MONGODB_URI);
+const mongoClient = new MongoClient(MONGODB_URI, {
+  tls: true,
+  serverSelectionTimeoutMS: 10000
+});
 let adminCollection;
 
 async function connectMongo() {
