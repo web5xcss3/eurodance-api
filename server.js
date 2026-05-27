@@ -1,27 +1,36 @@
 const express = require('express');
 const cors = require('cors');
-const fs = require('fs');
-const path = require('path');
 const multer = require('multer');
+const { MongoClient } = require('mongodb');
 
 const mockData = require('./data/mockData.json');
 const labels = require('./data/labels.json');
 const genres = require('./data/genres.json');
 
 const app = express();
-
 const upload = multer();
-
-const adminItemsPath = path.join(
-  __dirname,
-  'data',
-  'adminItems.json'
-);
 
 app.use(cors());
 app.use(express.json());
 
 const YOUTUBE_KEY = process.env.YOUTUBE_KEY;
+const MONGODB_URI = process.env.MONGODB_URI;
+
+const mongoClient = new MongoClient(MONGODB_URI);
+let adminCollection;
+
+async function connectMongo() {
+  if (adminCollection) return adminCollection;
+
+  await mongoClient.connect();
+
+  const db = mongoClient.db('play90');
+  adminCollection = db.collection('adminItems');
+
+  console.log('✅ MongoDB conectado');
+
+  return adminCollection;
+}
 
 const cache = {};
 const CACHE_TIME = 1000 * 60 * 60;
@@ -45,30 +54,27 @@ app.get('/genres', (req, res) => {
   res.json(genres);
 });
 
-// NOVA ROTA
-app.get('/adminItems', (req, res) => {
-
+// ===============================
+// ADMIN ITEMS MONGODB
+// ===============================
+app.get('/adminItems', async (req, res) => {
   try {
+    const collection = await connectMongo();
 
-    if (!fs.existsSync(adminItemsPath)) {
-      fs.writeFileSync(adminItemsPath, '[]');
-    }
-
-    const items = JSON.parse(
-      fs.readFileSync(adminItemsPath, 'utf8')
-    );
+    const items = await collection
+      .find({})
+      .sort({ id: -1 })
+      .toArray();
 
     res.json(items);
 
   } catch (error) {
-
-    console.error('Erro ao ler adminItems:', error);
+    console.error('Erro Mongo adminItems:', error);
 
     res.status(500).json({
       error: 'Erro ao carregar adminItems'
     });
   }
-
 });
 
 // ===============================
@@ -103,6 +109,7 @@ app.get('/youtube', async (req, res) => {
 
   } catch (error) {
     console.error('Erro backend:', error);
+
     res.status(500).json({
       error: 'Erro ao buscar vídeos'
     });
@@ -110,7 +117,7 @@ app.get('/youtube', async (req, res) => {
 });
 
 // ===============================
-// ADMIN PROTEGIDO + IMGBB + SAVE JSON
+// ADMIN PROTEGIDO + IMGBB + MONGODB
 // ===============================
 app.post(
   '/admin/create-item',
@@ -119,7 +126,6 @@ app.post(
     { name: 'artistImage', maxCount: 1 }
   ]),
   async (req, res) => {
-
     const token = req.headers.authorization?.replace('Bearer ', '');
 
     if (token !== process.env.ADMIN_TOKEN) {
@@ -194,24 +200,9 @@ app.post(
         style: req.body.style || ''
       };
 
-      if (!fs.existsSync(adminItemsPath)) {
-        fs.writeFileSync(adminItemsPath, '[]');
-      }
+      const collection = await connectMongo();
 
-      let adminItems = [];
-
-      try {
-        adminItems = JSON.parse(fs.readFileSync(adminItemsPath, 'utf8'));
-      } catch (error) {
-        adminItems = [];
-      }
-
-      adminItems.unshift(item);
-
-      fs.writeFileSync(
-        adminItemsPath,
-        JSON.stringify(adminItems, null, 2)
-      );
+      await collection.insertOne(item);
 
       res.json({
         success: true,
@@ -231,7 +222,7 @@ app.post(
 // ===============================
 // ADMIN DELETE ITEM
 // ===============================
-app.delete('/admin/delete-item/:id', (req, res) => {
+app.delete('/admin/delete-item/:id', async (req, res) => {
   const token = req.headers.authorization?.replace('Bearer ', '');
 
   if (token !== process.env.ADMIN_TOKEN) {
@@ -243,30 +234,15 @@ app.delete('/admin/delete-item/:id', (req, res) => {
   try {
     const id = parseInt(req.params.id, 10);
 
-    if (!fs.existsSync(adminItemsPath)) {
-      fs.writeFileSync(adminItemsPath, '[]');
-    }
+    const collection = await connectMongo();
 
-    let adminItems = JSON.parse(
-      fs.readFileSync(adminItemsPath, 'utf8')
-    );
+    const result = await collection.deleteOne({ id });
 
-    const before = adminItems.length;
-
-    adminItems = adminItems.filter(item =>
-      parseInt(item.id, 10) !== id
-    );
-
-    if (adminItems.length === before) {
+    if (result.deletedCount === 0) {
       return res.status(404).json({
         error: 'Item não encontrado'
       });
     }
-
-    fs.writeFileSync(
-      adminItemsPath,
-      JSON.stringify(adminItems, null, 2)
-    );
 
     res.json({
       success: true,
@@ -294,6 +270,7 @@ app.get('/', (req, res) => {
       '/mock',
       '/labels',
       '/genres',
+      '/adminItems',
       '/youtube?q=eurodance',
       '/admin/create-item'
     ]
