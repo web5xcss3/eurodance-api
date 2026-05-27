@@ -229,6 +229,61 @@ app.post(
 );
 
 // ===============================
+// ADMIN DELETE ITEM
+// ===============================
+app.delete('/admin/delete-item/:id', (req, res) => {
+  const token = req.headers.authorization?.replace('Bearer ', '');
+
+  if (token !== process.env.ADMIN_TOKEN) {
+    return res.status(401).json({
+      error: 'Não autorizado'
+    });
+  }
+
+  try {
+    const id = parseInt(req.params.id, 10);
+
+    if (!fs.existsSync(adminItemsPath)) {
+      fs.writeFileSync(adminItemsPath, '[]');
+    }
+
+    let adminItems = JSON.parse(
+      fs.readFileSync(adminItemsPath, 'utf8')
+    );
+
+    const before = adminItems.length;
+
+    adminItems = adminItems.filter(item =>
+      parseInt(item.id, 10) !== id
+    );
+
+    if (adminItems.length === before) {
+      return res.status(404).json({
+        error: 'Item não encontrado'
+      });
+    }
+
+    fs.writeFileSync(
+      adminItemsPath,
+      JSON.stringify(adminItems, null, 2)
+    );
+
+    res.json({
+      success: true,
+      message: 'Item removido com sucesso',
+      id
+    });
+
+  } catch (error) {
+    console.error('Erro ao deletar item:', error);
+
+    res.status(500).json({
+      error: 'Erro ao deletar item'
+    });
+  }
+});
+
+// ===============================
 // TESTE
 // ===============================
 app.get('/', (req, res) => {
