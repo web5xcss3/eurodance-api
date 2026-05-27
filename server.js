@@ -1,5 +1,12 @@
+const fs = require('fs');
+const path = require('path');
 const multer = require('multer');
 
+const upload = multer();
+
+const adminItemsPath = path.join(__dirname, 'data', 'adminItems.json');
+
+const multer = require('multer');
 const upload = multer();
 const express = require('express');
 const cors = require('cors');
@@ -35,6 +42,32 @@ app.get('/labels', (req, res) => {
 
 app.get('/genres', (req, res) => {
   res.json(genres);
+});
+
+// NOVA ROTA
+app.get('/adminItems', (req, res) => {
+
+  try {
+
+    if (!fs.existsSync(adminItemsPath)) {
+      fs.writeFileSync(adminItemsPath, '[]');
+    }
+
+    const items = JSON.parse(
+      fs.readFileSync(adminItemsPath, 'utf8')
+    );
+
+    res.json(items);
+
+  } catch (error) {
+
+    console.error('Erro ao ler adminItems:', error);
+
+    res.status(500).json({
+      error: 'Erro ao carregar adminItems'
+    });
+  }
+
 });
 
 // ===============================
@@ -76,7 +109,7 @@ app.get('/youtube', async (req, res) => {
 });
 
 // ===============================
-// ADMIN PROTEGIDO + IMGBB
+// ADMIN PROTEGIDO + IMGBB + SAVE JSON
 // ===============================
 app.post(
   '/admin/create-item',
@@ -95,7 +128,6 @@ app.post(
     }
 
     try {
-
       const albumFile = req.files?.image?.[0];
       const artistFile = req.files?.artistImage?.[0];
 
@@ -105,9 +137,7 @@ app.post(
         });
       }
 
-      // Função reutilizável para enviar imagem ao ImgBB
       async function uploadToImgBB(file) {
-
         const imageBlob = new Blob([file.buffer], {
           type: file.mimetype || 'image/jpeg'
         });
@@ -130,9 +160,6 @@ app.post(
 
         const imageData = await response.json();
 
-        console.log('IMGBB STATUS:', response.status);
-        console.log('IMGBB RESPONSE:', imageData);
-
         if (!response.ok || !imageData.success || !imageData.data) {
           throw new Error(
             imageData?.error?.message || 'Erro upload ImgBB'
@@ -142,24 +169,11 @@ app.post(
         return imageData.data.url;
       }
 
-      console.log('ALBUM FILE:', {
-        name: albumFile.originalname,
-        size: albumFile.size,
-        mimetype: albumFile.mimetype
-      });
-
       const imageUrl = await uploadToImgBB(albumFile);
 
       let artistImageUrl = '';
 
       if (artistFile && artistFile.buffer) {
-
-        console.log('ARTIST FILE:', {
-          name: artistFile.originalname,
-          size: artistFile.size,
-          mimetype: artistFile.mimetype
-        });
-
         artistImageUrl = await uploadToImgBB(artistFile);
       }
 
@@ -179,16 +193,35 @@ app.post(
         style: req.body.style || ''
       };
 
+      if (!fs.existsSync(adminItemsPath)) {
+        fs.writeFileSync(adminItemsPath, '[]');
+      }
+
+      let adminItems = [];
+
+      try {
+        adminItems = JSON.parse(fs.readFileSync(adminItemsPath, 'utf8'));
+      } catch (error) {
+        adminItems = [];
+      }
+
+      adminItems.unshift(item);
+
+      fs.writeFileSync(
+        adminItemsPath,
+        JSON.stringify(adminItems, null, 2)
+      );
+
       res.json({
         success: true,
         item
       });
 
     } catch (error) {
-      console.error('ERRO REAL:', error);
+      console.error('ERRO ADMIN:', error);
 
       res.status(500).json({
-        error: error.message || 'Erro upload ImgBB'
+        error: error.message || 'Erro ao criar item'
       });
     }
   }
