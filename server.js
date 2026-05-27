@@ -1,20 +1,22 @@
+const express = require('express');
+const cors = require('cors');
 const fs = require('fs');
 const path = require('path');
 const multer = require('multer');
-
-const upload = multer();
-
-const adminItemsPath = path.join(__dirname, 'data', 'adminItems.json');
-
-const upload = multer();
-const express = require('express');
-const cors = require('cors');
 
 const mockData = require('./data/mockData.json');
 const labels = require('./data/labels.json');
 const genres = require('./data/genres.json');
 
 const app = express();
+
+const upload = multer();
+
+const adminItemsPath = path.join(
+  __dirname,
+  'data',
+  'adminItems.json'
+);
 
 app.use(cors());
 app.use(express.json());
