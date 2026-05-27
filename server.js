@@ -6,7 +6,6 @@ const upload = multer();
 
 const adminItemsPath = path.join(__dirname, 'data', 'adminItems.json');
 
-const multer = require('multer');
 const upload = multer();
 const express = require('express');
 const cors = require('cors');
