@@ -38,9 +38,9 @@ async function connectMongo() {
 const cache = {};
 const CACHE_TIME = 1000 * 60 * 60;
 
-// ===============================
+// ===========
 // JSON ROUTES
-// ===============================
+// ===========
 app.get('/mockData', (req, res) => {
   res.json(mockData);
 });
