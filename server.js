@@ -275,10 +275,7 @@ app.delete('/admin/delete-item/:id', async (req, res) => {
 // ===============================
 // ADMIN UPDATE ITEM
 // ===============================
-app.put(
-  '/admin/update-item/:id',
-  upload.fields([]),
-  async (req, res) => {
+    app.put('/admin/update-item/:id', async (req, res) => {
 
     const token = req.headers.authorization?.replace('Bearer ', '');
 
