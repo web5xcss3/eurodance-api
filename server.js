@@ -275,72 +275,65 @@ app.delete('/admin/delete-item/:id', async (req, res) => {
 // ===============================
 // ADMIN UPDATE ITEM
 // ===============================
-app.put('/admin/update-item/:id', upload.none(), async (req, res) => {
+app.put(
+  '/admin/update-item/:id',
+  upload.fields([]),
+  async (req, res) => {
 
-  const token = req.headers.authorization?.replace('Bearer ', '');
+    const token = req.headers.authorization?.replace('Bearer ', '');
 
-  if (token !== process.env.ADMIN_TOKEN) {
-    return res.status(401).json({
-      error: 'Não autorizado'
-    });
-  }
+    if (token !== process.env.ADMIN_TOKEN) {
+      return res.status(401).json({ error: 'Não autorizado' });
+    }
 
-  try {
-    const id = parseInt(req.params.id, 10);
+    try {
+      const id = parseInt(req.params.id, 10);
+      const collection = await connectMongo();
 
-    const collection = await connectMongo();
+      const updateData = {};
 
-    const updateData = {};
+      [
+        'type',
+        'artist',
+        'title',
+        'embedUrl',
+        'year',
+        'label',
+        'country',
+        'format',
+        'genre',
+        'style'
+      ].forEach(field => {
+        if (req.body[field] !== undefined) {
+          updateData[field] = req.body[field];
+        }
+      });
 
-    [
-      'type',
-      'artist',
-      'title',
-      'embedUrl',
-      'year',
-      'label',
-      'country',
-      'format',
-      'genre',
-      'style'
-    ].forEach(field => {
-      if (req.body[field] !== undefined) {
-        updateData[field] = req.body[field];
+      const result = await collection.updateOne(
+        { id },
+        { $set: updateData }
+      );
+
+      if (result.matchedCount === 0) {
+        return res.status(404).json({ error: 'Item não encontrado' });
       }
-    });
 
-    if (!Object.keys(updateData).length) {
-      return res.status(400).json({
-        error: 'Nenhum dado para atualizar'
+      const updatedItem = await collection.findOne({ id });
+
+      res.json({
+        success: true,
+        item: updatedItem
+      });
+
+    } catch (error) {
+      console.error('Erro update item:', error);
+
+      res.status(500).json({
+        error: error.message || 'Erro ao atualizar item'
       });
     }
-
-    const result = await collection.updateOne(
-      { id },
-      { $set: updateData }
-    );
-
-    if (result.matchedCount === 0) {
-      return res.status(404).json({
-        error: 'Item não encontrado'
-      });
-    }
-
-    const updatedItem = await collection.findOne({ id });
-
-    res.json({
-      success: true,
-      item: updatedItem
-    });
-
-  } catch (error) {
-    console.error('Erro update item:', error);
-
-    res.status(500).json({
-      error: 'Erro ao atualizar item'
-    });
   }
-});
+);
 
 // ===============================
 // TESTE
