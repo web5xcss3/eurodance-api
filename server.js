@@ -263,20 +263,83 @@ app.delete('/admin/delete-item/:id', async (req, res) => {
 });
 
 // ===============================
+// ADMIN UPDATE ITEM
+// ===============================
+app.put('/admin/update-item/:id', async (req, res) => {
+
+  const token = req.headers.authorization?.replace('Bearer ', '');
+
+  if (token !== process.env.ADMIN_TOKEN) {
+    return res.status(401).json({
+      error: 'Não autorizado'
+    });
+  }
+
+  try {
+
+    const id = parseInt(req.params.id, 10);
+
+    const collection = await connectMongo();
+
+    const updateData = {
+      artist: req.body.artist || '',
+      title: req.body.title || '',
+      embedUrl: req.body.embedUrl || '',
+      year: req.body.year || '',
+      label: req.body.label || '',
+      country: req.body.country || '',
+      format: req.body.format || '',
+      genre: req.body.genre || '',
+      style: req.body.style || ''
+    };
+
+    const result = await collection.updateOne(
+      { id },
+      {
+        $set: updateData
+      }
+    );
+
+    if (result.matchedCount === 0) {
+      return res.status(404).json({
+        error: 'Item não encontrado'
+      });
+    }
+
+    const updatedItem = await collection.findOne({ id });
+
+    res.json({
+      success: true,
+      item: updatedItem
+    });
+
+  } catch (error) {
+
+    console.error('Erro update item:', error);
+
+    res.status(500).json({
+      error: 'Erro ao atualizar item'
+    });
+  }
+
+});
+
+// ===============================
 // TESTE
 // ===============================
 app.get('/', (req, res) => {
   res.json({
     status: 'API OK',
     routes: [
-      '/mockData',
-      '/mock',
-      '/labels',
-      '/genres',
-      '/adminItems',
-      '/youtube?q=eurodance',
-      '/admin/create-item'
-    ]
+  '/mockData',
+  '/mock',
+  '/labels',
+  '/genres',
+  '/adminItems',
+  '/youtube?q=eurodance',
+  '/admin/create-item',
+  '/admin/update-item/:id'
+]
   });
 });
 
