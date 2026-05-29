@@ -1,9 +1,8 @@
 const express = require('express');
 const cors = require('cors');
 const multer = require('multer');
-const {
-    MongoClient
-} = require('mongodb');
+const jwt = require('jsonwebtoken');
+const { MongoClient } = require('mongodb');
 
 const mockData = require('./data/mockData.json');
 const labels = require('./data/labels.json');
@@ -22,6 +21,7 @@ const mongoClient = new MongoClient(MONGODB_URI, {
     tls: true,
     serverSelectionTimeoutMS: 10000
 });
+
 let adminCollection;
 
 async function connectMongo() {
@@ -37,8 +37,54 @@ async function connectMongo() {
     return adminCollection;
 }
 
+function requireAdmin(req, res, next) {
+    const token = req.headers.authorization?.replace('Bearer ', '');
+
+    if (!token) {
+        return res.status(401).json({
+            error: 'Token ausente'
+        });
+    }
+
+    try {
+        req.admin = jwt.verify(token, process.env.JWT_SECRET);
+        next();
+    } catch (error) {
+        return res.status(401).json({
+            error: 'Token inválido ou expirado'
+        });
+    }
+}
+
 const cache = {};
 const CACHE_TIME = 1000 * 60 * 60;
+
+// ===============================
+// ADMIN LOGIN
+// ===============================
+app.post('/admin/login', (req, res) => {
+    const { username, password } = req.body;
+
+    if (
+        username !== process.env.ADMIN_USER ||
+        password !== process.env.ADMIN_PASS
+    ) {
+        return res.status(401).json({
+            error: 'Login inválido'
+        });
+    }
+
+    const token = jwt.sign(
+        { role: 'admin' },
+        process.env.JWT_SECRET,
+        { expiresIn: '6h' }
+    );
+
+    res.json({
+        success: true,
+        token
+    });
+});
 
 // ===============================
 // JSON ROUTES
@@ -68,9 +114,7 @@ app.get('/adminItems', async (req, res) => {
 
         const items = await collection
             .find({})
-            .sort({
-                id: -1
-            })
+            .sort({ id: -1 })
             .toArray();
 
         res.json(items);
@@ -124,28 +168,16 @@ app.get('/youtube', async (req, res) => {
 });
 
 // ===============================
-// ADMIN PROTEGIDO + IMGBB + MONGODB
+// ADMIN CREATE ITEM
 // ===============================
 app.post(
     '/admin/create-item',
-    upload.fields([{
-            name: 'image',
-            maxCount: 1
-        },
-        {
-            name: 'artistImage',
-            maxCount: 1
-        }
+    requireAdmin,
+    upload.fields([
+        { name: 'image', maxCount: 1 },
+        { name: 'artistImage', maxCount: 1 }
     ]),
     async (req, res) => {
-        const token = req.headers.authorization?.replace('Bearer ', '');
-
-        if (token !== process.env.ADMIN_TOKEN) {
-            return res.status(401).json({
-                error: 'Não autorizado'
-            });
-        }
-
         try {
             const albumFile = req.files?.image?.[0];
             const artistFile = req.files?.artistImage?.[0];
@@ -170,7 +202,8 @@ app.post(
                 );
 
                 const response = await fetch(
-                    `https://api.imgbb.com/1/upload?key=${process.env.IMGBB_KEY}`, {
+                    `https://api.imgbb.com/1/upload?key=${process.env.IMGBB_KEY}`,
+                    {
                         method: 'POST',
                         body: form
                     }
@@ -233,23 +266,13 @@ app.post(
 // ===============================
 // ADMIN DELETE ITEM
 // ===============================
-app.delete('/admin/delete-item/:id', async (req, res) => {
-    const token = req.headers.authorization?.replace('Bearer ', '');
-
-    if (token !== process.env.ADMIN_TOKEN) {
-        return res.status(401).json({
-            error: 'Não autorizado'
-        });
-    }
-
+app.delete('/admin/delete-item/:id', requireAdmin, async (req, res) => {
     try {
         const id = parseInt(req.params.id, 10);
 
         const collection = await connectMongo();
 
-        const result = await collection.deleteOne({
-            id
-        });
+        const result = await collection.deleteOne({ id });
 
         if (result.deletedCount === 0) {
             return res.status(404).json({
@@ -275,62 +298,56 @@ app.delete('/admin/delete-item/:id', async (req, res) => {
 // ===============================
 // ADMIN UPDATE ITEM
 // ===============================
-    app.put('/admin/update-item/:id', async (req, res) => {
-
-    const token = req.headers.authorization?.replace('Bearer ', '');
-
-    if (token !== process.env.ADMIN_TOKEN) {
-      return res.status(401).json({ error: 'Não autorizado' });
-    }
-
+app.put('/admin/update-item/:id', requireAdmin, async (req, res) => {
     try {
-      const id = parseInt(req.params.id, 10);
-      const collection = await connectMongo();
+        const id = parseInt(req.params.id, 10);
+        const collection = await connectMongo();
 
-      const updateData = {};
+        const updateData = {};
 
-      [
-        'type',
-        'artist',
-        'title',
-        'embedUrl',
-        'year',
-        'label',
-        'country',
-        'format',
-        'genre',
-        'style'
-      ].forEach(field => {
-        if (req.body[field] !== undefined) {
-          updateData[field] = req.body[field];
+        [
+            'type',
+            'artist',
+            'title',
+            'embedUrl',
+            'year',
+            'label',
+            'country',
+            'format',
+            'genre',
+            'style'
+        ].forEach(field => {
+            if (req.body[field] !== undefined) {
+                updateData[field] = req.body[field];
+            }
+        });
+
+        const result = await collection.updateOne(
+            { id },
+            { $set: updateData }
+        );
+
+        if (result.matchedCount === 0) {
+            return res.status(404).json({
+                error: 'Item não encontrado'
+            });
         }
-      });
 
-      const result = await collection.updateOne(
-        { id },
-        { $set: updateData }
-      );
+        const updatedItem = await collection.findOne({ id });
 
-      if (result.matchedCount === 0) {
-        return res.status(404).json({ error: 'Item não encontrado' });
-      }
-
-      const updatedItem = await collection.findOne({ id });
-
-      res.json({
-        success: true,
-        item: updatedItem
-      });
+        res.json({
+            success: true,
+            item: updatedItem
+        });
 
     } catch (error) {
-      console.error('Erro update item:', error);
+        console.error('Erro update item:', error);
 
-      res.status(500).json({
-        error: error.message || 'Erro ao atualizar item'
-      });
+        res.status(500).json({
+            error: error.message || 'Erro ao atualizar item'
+        });
     }
-  }
-);
+});
 
 // ===============================
 // TESTE
@@ -345,8 +362,10 @@ app.get('/', (req, res) => {
             '/genres',
             '/adminItems',
             '/youtube?q=eurodance',
+            '/admin/login',
             '/admin/create-item',
-            '/admin/update-item/:id'
+            '/admin/update-item/:id',
+            '/admin/delete-item/:id'
         ]
     });
 });
