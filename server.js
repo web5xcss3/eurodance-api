@@ -41,9 +41,7 @@ function requireAdmin(req, res, next) {
     const token = req.headers.authorization?.replace('Bearer ', '');
 
     if (!token) {
-        return res.status(401).json({
-            error: 'Token ausente'
-        });
+        return res.status(401).json({ error: 'Token ausente' });
     }
 
     try {
@@ -54,6 +52,38 @@ function requireAdmin(req, res, next) {
             error: 'Token inválido ou expirado'
         });
     }
+}
+
+async function uploadToImgBB(file) {
+    const imageBlob = new Blob([file.buffer], {
+        type: file.mimetype || 'image/jpeg'
+    });
+
+    const form = new globalThis.FormData();
+
+    form.append(
+        'image',
+        imageBlob,
+        file.originalname || 'upload.jpg'
+    );
+
+    const response = await fetch(
+        `https://api.imgbb.com/1/upload?key=${process.env.IMGBB_KEY}`,
+        {
+            method: 'POST',
+            body: form
+        }
+    );
+
+    const imageData = await response.json();
+
+    if (!response.ok || !imageData.success || !imageData.data) {
+        throw new Error(
+            imageData?.error?.message || 'Erro upload ImgBB'
+        );
+    }
+
+    return imageData.data.url;
 }
 
 const cache = {};
@@ -106,7 +136,7 @@ app.get('/genres', (req, res) => {
 });
 
 // ===============================
-// ADMIN ITEMS MONGODB
+// ADMIN ITEMS - TODOS
 // ===============================
 app.get('/adminItems', async (req, res) => {
     try {
@@ -124,6 +154,34 @@ app.get('/adminItems', async (req, res) => {
 
         res.status(500).json({
             error: 'Erro ao carregar adminItems'
+        });
+    }
+});
+
+// ===============================
+// PUBLIC ITEMS - APENAS APROVADOS
+// ===============================
+app.get('/items', async (req, res) => {
+    try {
+        const collection = await connectMongo();
+
+        const items = await collection
+            .find({
+                $or: [
+                    { status: 'approved' },
+                    { status: { $exists: false } }
+                ]
+            })
+            .sort({ id: -1 })
+            .toArray();
+
+        res.json(items);
+
+    } catch (error) {
+        console.error('Erro Mongo public items:', error);
+
+        res.status(500).json({
+            error: 'Erro ao carregar itens públicos'
         });
     }
 });
@@ -188,38 +246,6 @@ app.post(
                 });
             }
 
-            async function uploadToImgBB(file) {
-                const imageBlob = new Blob([file.buffer], {
-                    type: file.mimetype || 'image/jpeg'
-                });
-
-                const form = new globalThis.FormData();
-
-                form.append(
-                    'image',
-                    imageBlob,
-                    file.originalname || 'upload.jpg'
-                );
-
-                const response = await fetch(
-                    `https://api.imgbb.com/1/upload?key=${process.env.IMGBB_KEY}`,
-                    {
-                        method: 'POST',
-                        body: form
-                    }
-                );
-
-                const imageData = await response.json();
-
-                if (!response.ok || !imageData.success || !imageData.data) {
-                    throw new Error(
-                        imageData?.error?.message || 'Erro upload ImgBB'
-                    );
-                }
-
-                return imageData.data.url;
-            }
-
             const imageUrl = await uploadToImgBB(albumFile);
 
             let artistImageUrl = '';
@@ -230,6 +256,8 @@ app.post(
 
             const item = {
                 id: Date.now(),
+                status: 'approved',
+                source: 'admin',
                 type: req.body.type || 'albums',
                 artist: req.body.artist || '',
                 artistImage: artistImageUrl,
@@ -241,7 +269,8 @@ app.post(
                 country: req.body.country || '',
                 format: req.body.format || '',
                 genre: req.body.genre || '',
-                style: req.body.style || ''
+                style: req.body.style || '',
+                createdAt: new Date()
             };
 
             const collection = await connectMongo();
@@ -264,12 +293,119 @@ app.post(
 );
 
 // ===============================
+// PUBLIC SUBMIT ITEM
+// ===============================
+app.post(
+    '/public/submit-item',
+    upload.fields([
+        { name: 'image', maxCount: 1 },
+        { name: 'artistImage', maxCount: 1 }
+    ]),
+    async (req, res) => {
+        try {
+            const albumFile = req.files?.image?.[0];
+            const artistFile = req.files?.artistImage?.[0];
+
+            if (!albumFile || !albumFile.buffer) {
+                return res.status(400).json({
+                    error: 'Nenhuma imagem de capa recebida pela API'
+                });
+            }
+
+            const imageUrl = await uploadToImgBB(albumFile);
+
+            let artistImageUrl = '';
+
+            if (artistFile && artistFile.buffer) {
+                artistImageUrl = await uploadToImgBB(artistFile);
+            }
+
+            const item = {
+                id: Date.now(),
+                status: 'pending',
+                source: 'public',
+                type: req.body.type || 'albums',
+                artist: req.body.artist || '',
+                artistImage: artistImageUrl,
+                title: req.body.title || '',
+                image: imageUrl,
+                embedUrl: req.body.embedUrl || '',
+                year: req.body.year || '',
+                label: req.body.label || '',
+                country: req.body.country || '',
+                format: req.body.format || '',
+                genre: req.body.genre || '',
+                style: req.body.style || '',
+                createdAt: new Date()
+            };
+
+            const collection = await connectMongo();
+
+            await collection.insertOne(item);
+
+            res.json({
+                success: true,
+                message: 'Álbum enviado para aprovação.',
+                item
+            });
+
+        } catch (error) {
+            console.error('ERRO PUBLIC SUBMIT:', error);
+
+            res.status(500).json({
+                error: error.message || 'Erro ao enviar álbum'
+            });
+        }
+    }
+);
+
+// ===============================
+// ADMIN APPROVE ITEM
+// ===============================
+app.put('/admin/approve-item/:id', requireAdmin, async (req, res) => {
+    try {
+        const id = parseInt(req.params.id, 10);
+        const collection = await connectMongo();
+
+        const result = await collection.updateOne(
+            { id },
+            {
+                $set: {
+                    status: 'approved',
+                    approvedAt: new Date()
+                }
+            }
+        );
+
+        if (result.matchedCount === 0) {
+            return res.status(404).json({
+                error: 'Item não encontrado'
+            });
+        }
+
+        const item = await collection.findOne({ id });
+
+        res.json({
+            success: true,
+            message: 'Item aprovado com sucesso',
+            item
+        });
+
+    } catch (error) {
+        console.error('Erro approve item:', error);
+
+        res.status(500).json({
+            error: error.message || 'Erro ao aprovar item'
+        });
+    }
+});
+
+// ===============================
 // ADMIN DELETE ITEM
 // ===============================
 app.delete('/admin/delete-item/:id', requireAdmin, async (req, res) => {
     try {
         const id = parseInt(req.params.id, 10);
-
         const collection = await connectMongo();
 
         const result = await collection.deleteOne({ id });
@@ -307,6 +443,7 @@ app.put('/admin/update-item/:id', requireAdmin, async (req, res) => {
 
         [
             'type',
+            'status',
             'artist',
             'title',
             'embedUrl',
@@ -360,10 +497,13 @@ app.get('/', (req, res) => {
             '/mock',
             '/labels',
             '/genres',
+            '/items',
             '/adminItems',
             '/youtube?q=eurodance',
             '/admin/login',
             '/admin/create-item',
+            '/public/submit-item',
+            '/admin/approve-item/:id',
             '/admin/update-item/:id',
             '/admin/delete-item/:id'
         ]
