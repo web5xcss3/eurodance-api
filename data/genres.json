@@ -1,78 +1,82 @@
 [
   {
     "id": 1,
-    "name": "Eurodance"
+    "name": "Eurodance",
+    "image": "images/genres/eurodance.webp"
   },
   {
     "id": 2,
-    "name": "Euro House"
+    "name": "Euro House",
+    "image": "images/genres/eurohouse.webp"
   },
   {
     "id": 3,
-    "name": "Eurohouse"
+    "name": "Italo Dance",
+    "image": "images/genres/italodance.webp"
   },
   {
     "id": 4,
-    "name": "Italo Dance"
+    "name": "Trance",
+    "image": "images/genres/trance.webp"
   },
   {
     "id": 5,
-    "name": "Italodance"
+    "name": "Italo House",
+    "image": "images/genres/italohouse.webp"
   },
   {
     "id": 6,
-    "name": "Trance"
+    "name": "House",
+    "image": "images/genres/house.webp"
   },
   {
     "id": 7,
-    "name": "Italo House"
+    "name": "Tech House",
+    "image": "images/genres/techhouse.webp"
   },
   {
     "id": 8,
-    "name": "House"
+    "name": "Happy Hardcore",
+    "image": "images/genres/happyhardcore.webp"
   },
   {
     "id": 9,
-    "name": "Tech House"
+    "name": "Hard Trance",
+    "image": "images/genres/hardtrance.webp"
   },
   {
     "id": 10,
-    "name": "Happy Hardcore"
+    "name": "Progressive House",
+    "image": "images/genres/progressivehouse.webp"
   },
   {
     "id": 11,
-    "name": "Hard Trance"
+    "name": "Techno",
+    "image": "images/genres/techno.webp"
   },
   {
     "id": 12,
-    "name": "Progressive House"
+    "name": "Downtempo",
+    "image": "images/genres/downtempo.webp"
   },
   {
     "id": 13,
-    "name": "Techno"
+    "name": "Ambient",
+    "image": "images/genres/ambient.webp"
   },
   {
     "id": 14,
-    "name": "Downtempo"
+    "name": "Disco",
+    "image": "images/genres/disco.webp"
   },
   {
     "id": 15,
-    "name": "Ambient"
+    "name": "New Beat",
+    "image": "images/genres/newbeat.webp"
   },
   {
     "id": 16,
-    "name": "Progressive House"
-  },
-  {
-    "id": 17,
-    "name": "Disco"
-  },
-  {
-    "id": 18,
-    "name": "New Beat"
-  },
-  {
-    "id": 19,
-    "name": "Ragga"
+    "name": "Ragga",
+    "image": "images/genres/ragga.webp"
   }
 ]
