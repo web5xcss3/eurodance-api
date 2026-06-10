@@ -2,81 +2,81 @@
   {
     "id": 1,
     "name": "Eurodance",
-    "image": "images/genres/eurodance.webp"
+    "image": "assets/images/genres/eurodance.webp"
   },
   {
     "id": 2,
     "name": "Euro House",
-    "image": "images/genres/eurohouse.webp"
+    "image": "assets/images/genres/eurohouse.webp"
   },
   {
     "id": 3,
     "name": "Italo Dance",
-    "image": "images/genres/italodance.webp"
+    "image": "assets/images/genres/italodance.webp"
   },
   {
     "id": 4,
     "name": "Trance",
-    "image": "images/genres/trance.webp"
+    "image": "assets/images/genres/trance.webp"
   },
   {
     "id": 5,
     "name": "Italo House",
-    "image": "images/genres/italohouse.webp"
+    "image": "assets/images/genres/italohouse.webp"
   },
   {
     "id": 6,
     "name": "House",
-    "image": "images/genres/house.webp"
+    "image": "assets/images/genres/house.webp"
   },
   {
     "id": 7,
     "name": "Tech House",
-    "image": "images/genres/techhouse.webp"
+    "image": "assets/images/genres/techhouse.webp"
   },
   {
     "id": 8,
     "name": "Happy Hardcore",
-    "image": "images/genres/happyhardcore.webp"
+    "image": "assets/images/genres/happyhardcore.webp"
   },
   {
     "id": 9,
     "name": "Hard Trance",
-    "image": "images/genres/hardtrance.webp"
+    "image": "assets/images/genres/hardtrance.webp"
   },
   {
     "id": 10,
     "name": "Progressive House",
-    "image": "images/genres/progressivehouse.webp"
+    "image": "assets/images/genres/progressivehouse.webp"
   },
   {
     "id": 11,
     "name": "Techno",
-    "image": "images/genres/techno.webp"
+    "image": "assets/images/genres/techno.webp"
   },
   {
     "id": 12,
     "name": "Downtempo",
-    "image": "images/genres/downtempo.webp"
+    "image": "assets/images/genres/downtempo.webp"
   },
   {
     "id": 13,
     "name": "Ambient",
-    "image": "images/genres/ambient.webp"
+    "image": "assets/images/genres/ambient.webp"
   },
   {
     "id": 14,
     "name": "Disco",
-    "image": "images/genres/disco.webp"
+    "image": "assets/images/genres/disco.webp"
   },
   {
     "id": 15,
     "name": "New Beat",
-    "image": "images/genres/newbeat.webp"
+    "image": "assets/images/genres/newbeat.webp"
   },
   {
     "id": 16,
     "name": "Ragga",
-    "image": "images/genres/ragga.webp"
+    "image": "assets/images/genres/ragga.webp"
   }
 ]
