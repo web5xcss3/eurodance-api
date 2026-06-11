@@ -2,27 +2,27 @@
   {
     "id": 1,
     "name": "Eurodance",
-    "image": "assets/images/genres/eurodance.webp"
+    "image": "assets/images/eurodance.webp"
   },
   {
     "id": 2,
     "name": "Euro House",
-    "image": "assets/images/genres/eurohouse.webp"
+    "image": "assets/images/eurohouse.webp"
   },
   {
     "id": 3,
     "name": "Italo Dance",
-    "image": "assets/images/genres/italodance.webp"
+    "image": "assets/images/italodance.webp"
   },
   {
     "id": 4,
     "name": "Trance",
-    "image": "assets/images/genres/trance.webp"
+    "image": "assets/images/trance.webp"
   },
   {
     "id": 5,
     "name": "Italo House",
-    "image": "assets/images/genres/italohouse.webp"
+    "image": "assets/images/italohouse.webp"
   },
   {
     "id": 6,
@@ -32,47 +32,47 @@
   {
     "id": 7,
     "name": "Tech House",
-    "image": "assets/images/genres/techhouse.webp"
+    "image": "assets/images/techhouse.webp"
   },
   {
     "id": 8,
     "name": "Happy Hardcore",
-    "image": "assets/images/genres/happyhardcore.webp"
+    "image": "assets/images/happyhardcore.webp"
   },
   {
     "id": 9,
     "name": "Hard Trance",
-    "image": "assets/images/genres/hardtrance.webp"
+    "image": "assets/images/hardtrance.webp"
   },
   {
     "id": 10,
     "name": "Progressive House",
-    "image": "assets/images/genres/progressivehouse.webp"
+    "image": "assets/images/progressivehouse.webp"
   },
   {
     "id": 11,
     "name": "Techno",
-    "image": "assets/images/genres/techno.webp"
+    "image": "assets/images/techno.webp"
   },
   {
     "id": 12,
     "name": "Downtempo",
-    "image": "assets/images/genres/downtempo.webp"
+    "image": "assets/images/downtempo.webp"
   },
   {
     "id": 13,
     "name": "Ambient",
-    "image": "assets/images/genres/ambient.webp"
+    "image": "assets/images/ambient.webp"
   },
   {
     "id": 14,
     "name": "Disco",
-    "image": "assets/images/genres/disco.webp"
+    "image": "assets/images/disco.webp"
   },
   {
     "id": 15,
     "name": "New Beat",
-    "image": "assets/images/genres/newbeat.webp"
+    "image": "assets/images/newbeat.webp"
   },
   {
     "id": 16,
